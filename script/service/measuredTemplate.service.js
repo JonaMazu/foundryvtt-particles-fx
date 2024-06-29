@@ -191,7 +191,7 @@ function generateTemplateForRay(length, width, directionAngle, velocity){
 }
 
 
-export function generatePrefillTemplateForMeasured(measuredTemplate, velocityStart, velocityEnd){
+export function generatePrefillTemplateForMeasured(measuredTemplate, velocityStart, velocityEnd, type = 0){
     let result
 
     const velocity = (velocityStart + velocityEnd)/2
@@ -204,9 +204,47 @@ export function generatePrefillTemplateForMeasured(measuredTemplate, velocitySta
         result = generateTemplateForRect(measuredTemplate.distance, measuredTemplate.direction, velocity, (velocityEnd - velocityStart)/2 )
     } else if (measuredTemplate.t === "ray") {
         result = generateTemplateForRay(measuredTemplate.distance, measuredTemplate.width, measuredTemplate.direction, velocity)
+    } else if(measuredTemplate.t === "custom"){
+        result = generateTemplateForArea(measuredTemplate.distance, velocity, type)     
     }
 
     return mapToInputParticle(result)
+}
+
+//Replace the Logic for Circle spawning in a different function. Make it a seperate variable  for selecting type instead of spead.
+function generateTemplateForArea(radius, velocity, type){
+    let result
+    const angle = Utils.getRandomValueFrom('0_360')
+
+    if(type == 0){
+        result = {
+            positionSpawning: {x:0,y:0},
+            particleLifetime:radius*Utils.pixelOfDistanceConvertor()*1000/velocity,
+            angleStart: angle,
+            angleEnd: angle,
+        }
+    } else if (type == 1){
+        result = {
+            positionSpawning: {
+                x:radius*Utils.pixelOfDistanceConvertor()*Math.cos(angle*Math.PI/180),
+                y:radius*Utils.pixelOfDistanceConvertor()*Math.sin(angle*Math.PI/180)
+            },
+            particleLifetime:-1*radius*Utils.pixelOfDistanceConvertor()*1000/velocity,
+            angleStart: angle,
+            angleEnd: angle,
+        }
+    } else {
+        const radiusFinal = Utils.getRandomValueFrom('0_'+radius) * Utils.pixelOfDistanceConvertor()
+
+        result = {
+            positionSpawning: {
+                x:radiusFinal*Math.cos(angle*Math.PI/180),
+                y:radiusFinal*Math.sin(angle*Math.PI/180)
+            },
+        }
+    }
+
+    return result
 }
 
 export function computeTemplateForMeasuredDimension(measuredTemplate){

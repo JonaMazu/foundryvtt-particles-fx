@@ -1,7 +1,7 @@
 import { s_MODULE_ID ,s_EVENT_NAME, Vector3, Utils } from "../utils/utils.js"
 import { s_MESSAGE_TYPES } from "../utils/socketManager.js"
 import ParticlesEmitter from "../object/particlesEmitter.js"
-import { SprayingParticleTemplate, GravitingParticleTemplate, MissileParticleTemplate } from "../object/particleTemplate.js"
+import { SprayingParticleTemplate, GravitingParticleTemplate, MissileParticleTemplate, AreaParticleTemplate } from "../object/particleTemplate.js"
 import { defaultMotionTemplate } from "../prefillMotionTemplate.js"
 import { defaultColorTemplate } from "../prefillColorTemplate.js"
 import { CompatibiltyV2Manager } from "../utils/compatibilityManager.js"
@@ -48,6 +48,9 @@ export function initEmitters(emittersQueries){
                 gravitateParticles(query);
                 break;
             case MissileParticleTemplate.getType() :
+                missileParticles(query);
+                break;
+            case AreaParticleTemplate.getType() :
                 missileParticles(query);
                 break;
             default:

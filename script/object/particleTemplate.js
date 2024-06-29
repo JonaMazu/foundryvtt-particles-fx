@@ -424,3 +424,109 @@ export class GravitingParticleTemplate extends ParticleTemplate {
         )
     }
 }
+class fakeMeasured{
+    constructor(name, radius){
+        this.t = name 
+        this.distance = radius
+    }
+}
+//Measure Templates applied to Tokens instead.
+export class AreaParticleTemplate extends ParticleTemplate{ 
+
+    static getType(){
+        return "Circle"
+    }
+    static build(input, particleTexture){
+        return new SprayingParticleTemplate(
+            input.source,
+            input.target,
+            input.positionSpawning, 
+            input.particleVelocityStart, 
+            input.particleVelocityEnd, 
+            input.particleAngleStart, 
+            input.particleAngleEnd, 
+            input.particleSizeStart,
+            input.particleSizeEnd,
+            input.particleRotationStart,
+            input.particleRotationEnd,  
+            input.particleLifetime, 
+            particleTexture, 
+            input.particleColorStart, 
+            input.particleColorEnd,
+            input.alphaStart, 
+            input.alphaEnd,
+            input.vibrationAmplitudeStart, 
+            input.vibrationAmplitudeEnd,
+            input.vibrationFrequencyStart, 
+            input.vibrationFrequencyEnd,
+            input.advanced,
+            );
+    }
+
+    constructor(source, target, positionSpawning, velocityStart, velocityEnd, angleStart, angleEnd, 
+        sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, 
+        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced, radius){
+        super(source, target, sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced)
+        this.positionSpawning = Vector3.build(positionSpawning);   
+        this.velocityStart = velocityStart;         //Array of Number      
+        this.velocityEnd = velocityEnd;             //Array of Number
+        this.angleStart = angleStart;               //Array of Number      
+        this.angleEnd = angleEnd;                   //Array of Number
+        this.radius = radius
+    }
+
+    generateParticles(){
+        let advancedVariable = AdvancedVariable.computeAdvancedVariables(this.advanced?.variables)
+
+        let particleProperties = Utils.getObjectRandomValueFrom(this, advancedVariable, true)
+
+        let sourcePosition = Utils.getSourcePosition(particleProperties.source.getValue())
+        let target = particleProperties.target.getValue()
+        let particleLifetime = particleProperties.particleLifetime.getValue()
+        let positionSpawning = particleProperties.positionSpawning.getValue()
+        let faketemplate = new fakeMeasured("Circle", radius)
+        let targetAngleDirection
+        sourcePosition={x:this.source.x, y:this.source.y}//Don t use width and length
+        let measuredOverride = generatePrefillTemplateForMeasured(faketemplate, particleProperties.velocityStart.getValue(), particleProperties.velocityEnd.getValue())
+        particleProperties = {...particleProperties , ...measuredOverride}
+        particleLifetime = particleProperties.particleLifetime.getValue()
+        positionSpawning = particleProperties.positionSpawning.getValue()
+        targetAngleDirection = 0
+
+        let sprite = new PIXI.Sprite(this.particleTexture)
+        sprite.x = sourcePosition.x + positionSpawning.x;
+        sprite.y = sourcePosition.y + positionSpawning.y;
+        sprite.anchor.set(0.5);
+
+        let startSize = particleProperties.sizeStart.getValue()
+        sprite.width = startSize.x;
+        sprite.height = startSize.y;
+        sprite.angle = particleProperties.particleRotationStart.getValue() +  targetAngleDirection * 180 / Math.PI
+
+        let colorStart = Vector3.build(particleProperties.colorStart.getValue())
+        sprite.tint = Color.fromRGB([Math.floor(colorStart.x)/255,Math.floor(colorStart.y)/255, Math.floor(colorStart.z)/255])
+
+        return new SprayingParticle(
+            advancedVariable,
+            sprite,
+            target,
+            particleLifetime,
+            particleProperties.velocityStart,
+            particleProperties.velocityEnd,
+            particleProperties.angleStart.add(targetAngleDirection * 180 / Math.PI),
+            particleProperties.angleEnd.add(targetAngleDirection * 180 / Math.PI),
+            particleProperties.sizeStart,
+            particleProperties.sizeEnd,
+            particleProperties.particleRotationStart.add(targetAngleDirection * 180 / Math.PI),
+            particleProperties.particleRotationEnd.add(targetAngleDirection * 180 / Math.PI),
+            particleProperties.colorStart,
+            particleProperties.colorEnd,
+            particleProperties.alphaStart,
+            particleProperties.alphaEnd,
+            particleProperties.vibrationAmplitudeStart,
+            particleProperties.vibrationAmplitudeEnd,
+            particleProperties.vibrationFrequencyStart,
+            particleProperties.vibrationFrequencyEnd,
+        )
+    }
+}
