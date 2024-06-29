@@ -489,7 +489,7 @@ export class AreaParticleTemplate extends ParticleTemplate{
         let positionSpawning = particleProperties.positionSpawning.getValue()
         let faketemplate = new fakeMeasured("area", this.radius)
         let targetAngleDirection
-        sourcePosition={x:this.source.x, y:this.source.y}//Don t use width and length
+        //sourcePosition={x:this.source.x, y:this.source.y}//Don t use width and length
         let measuredOverride = generatePrefillTemplateForMeasured(faketemplate, particleProperties.velocityStart.getValue(), particleProperties.velocityEnd.getValue(), this.type)
         particleProperties = {...particleProperties , ...measuredOverride}
         particleLifetime = particleProperties.particleLifetime.getValue()
