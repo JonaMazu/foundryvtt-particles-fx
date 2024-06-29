@@ -204,7 +204,7 @@ export function generatePrefillTemplateForMeasured(measuredTemplate, velocitySta
         result = generateTemplateForRect(measuredTemplate.distance, measuredTemplate.direction, velocity, (velocityEnd - velocityStart)/2 )
     } else if (measuredTemplate.t === "ray") {
         result = generateTemplateForRay(measuredTemplate.distance, measuredTemplate.width, measuredTemplate.direction, velocity)
-    } else if(measuredTemplate.t === "custom"){
+    } else if(measuredTemplate.t === "area"){
         result = generateTemplateForArea(measuredTemplate.distance, velocity, type)     
     }
 
