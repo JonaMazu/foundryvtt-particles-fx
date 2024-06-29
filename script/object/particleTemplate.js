@@ -461,28 +461,31 @@ export class AreaParticleTemplate extends ParticleTemplate{
             input.vibrationFrequencyEnd,
             input.advanced,
             input.radius,
-            input.type
+            input.type,
+            input.texture
             );
     }
 
     constructor(source, target, positionSpawning, velocityStart, velocityEnd, angleStart, angleEnd, 
         sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, 
-        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced, radius, type){
+        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced, radius, type, texture = "none"){
         super(source, target, sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced)
         this.positionSpawning = Vector3.build(positionSpawning);   
         this.velocityStart = velocityStart;         //Array of Number      
         this.velocityEnd = velocityEnd;             //Array of Number
         this.angleStart = angleStart;               //Array of Number      
         this.angleEnd = angleEnd;                   //Array of Number
-        this.radius = radius
-        this.type = type
+        this.radius = radius;
+        this.type = type;
+        this.texture = texture
     }
 
     generateParticles(){
         let advancedVariable = AdvancedVariable.computeAdvancedVariables(this.advanced?.variables)
 
         let particleProperties = Utils.getObjectRandomValueFrom(this, advancedVariable, true)
-
+        if(this.texture != "none")
+            this.particleTexture = PIXI.Texture.from(this.texture);
         let sourcePosition = Utils.getSourcePosition(particleProperties.source.getValue())
         let target = particleProperties.target.getValue()
         let particleLifetime = particleProperties.particleLifetime.getValue()
