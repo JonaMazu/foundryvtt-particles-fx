@@ -38,6 +38,7 @@ export function listen() {
            switch (data.type)
            {
               case s_MESSAGE_TYPES.sprayParticles: particlesEmitterService.sprayParticles(...data.payload); break;
+              case s_MESSAGE_TYPES.areaParticles: particlesEmitterService.areaParticles(...data.payload); break;
               case s_MESSAGE_TYPES.missileParticles: particlesEmitterService.missileParticles(...data.payload); break;
               case s_MESSAGE_TYPES.gravitateParticles: particlesEmitterService.gravitateParticles(...data.payload); break;
               case s_MESSAGE_TYPES.stopEmissionById: particlesEmitterService.stopEmissionById(data.payload.emitterId, data.payload.immediate); break;
