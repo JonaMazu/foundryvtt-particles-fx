@@ -3,7 +3,7 @@ import { s_MESSAGE_TYPES, emitForOtherClient } from "../utils/socketManager.js"
 
 export default {
     spray : sprayParticles,
-    circle: areaParticles,
+    area: areaParticles,
     gravit : gravitateParticles,
     missile : missileParticles,
     stop : stopEmissionById,

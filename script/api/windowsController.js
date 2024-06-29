@@ -11,7 +11,7 @@ export function subscribeApiToWindow(){
         isInit: true,
         sprayParticles: emitController.spray,
         gravitateParticles: emitController.gravit,
-        areaParticles: emitController.circle,
+        areaParticles: emitController.area,
         missileParticles: emitController.missile,
         stopEmissionById: emitController.stop,
         stopAllEmission:  emitController.stopAll,
