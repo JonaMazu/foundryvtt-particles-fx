@@ -119,18 +119,20 @@ export class SprayingParticleTemplate extends ParticleTemplate{
             input.vibrationFrequencyStart, 
             input.vibrationFrequencyEnd,
             input.advanced,
+            input.texture,
             );
     }
 
     constructor(source, target, positionSpawning, velocityStart, velocityEnd, angleStart, angleEnd, 
         sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, 
-        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced,texture= "none"){
+        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced, texture= "none"){
         super(source, target, sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced)
         this.positionSpawning = Vector3.build(positionSpawning);   
         this.velocityStart = velocityStart;         //Array of Number      
         this.velocityEnd = velocityEnd;             //Array of Number
         this.angleStart = angleStart;               //Array of Number      
         this.angleEnd = angleEnd;                   //Array of Number
+        this.texture = texture;
     }
 
     generateParticles(){
