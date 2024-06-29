@@ -19,8 +19,8 @@ function sprayParticles(...args){
 
 function areaParticles(...args){
     let emitterId = { emitterId: particlesEmitterService.nextEmitterId() }
-    emitForOtherClient(s_MESSAGE_TYPES.AreaParticles, args, emitterId); 
-    return particlesEmitterService.AreaParticles(...args, emitterId)
+    emitForOtherClient(s_MESSAGE_TYPES.areaParticles, args, emitterId); 
+    return particlesEmitterService.areaParticles(...args, emitterId)
 }
 
 function gravitateParticles(...args){
