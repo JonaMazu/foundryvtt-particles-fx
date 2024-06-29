@@ -437,7 +437,7 @@ export class AreaParticleTemplate extends ParticleTemplate{
         return "area"
     }
     static build(input, particleTexture){
-        return new SprayingParticleTemplate(
+        return new AreaParticleTemplate(
             input.source,
             input.target,
             input.positionSpawning, 
@@ -460,6 +460,8 @@ export class AreaParticleTemplate extends ParticleTemplate{
             input.vibrationFrequencyStart, 
             input.vibrationFrequencyEnd,
             input.advanced,
+            input.radius,
+            input.type
             );
     }
 
