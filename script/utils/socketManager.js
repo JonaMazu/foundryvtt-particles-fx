@@ -8,6 +8,7 @@ export const s_MESSAGE_TYPES = {
     sprayParticles: 'sprayParticles',
     missileParticles: 'missileParticles',
     gravitateParticles: 'gravitateParticles',
+    areaParticles: 'areaParticles',
     stopAllEmission: 'stopAllEmission',
     stopEmissionById: 'stopEmissionById',
     updateMaxEmitterId: 'updateMaxEmitterId',
