@@ -465,7 +465,7 @@ export class AreaParticleTemplate extends ParticleTemplate{
 
     constructor(source, target, positionSpawning, velocityStart, velocityEnd, angleStart, angleEnd, 
         sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, 
-        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced, radius){
+        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced, radius, type){
         super(source, target, sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced)
         this.positionSpawning = Vector3.build(positionSpawning);   
         this.velocityStart = velocityStart;         //Array of Number      
@@ -473,6 +473,7 @@ export class AreaParticleTemplate extends ParticleTemplate{
         this.angleStart = angleStart;               //Array of Number      
         this.angleEnd = angleEnd;                   //Array of Number
         this.radius = radius
+        this.type = type
     }
 
     generateParticles(){
@@ -487,7 +488,7 @@ export class AreaParticleTemplate extends ParticleTemplate{
         let faketemplate = new fakeMeasured("Circle", radius)
         let targetAngleDirection
         sourcePosition={x:this.source.x, y:this.source.y}//Don t use width and length
-        let measuredOverride = generatePrefillTemplateForMeasured(faketemplate, particleProperties.velocityStart.getValue(), particleProperties.velocityEnd.getValue())
+        let measuredOverride = generatePrefillTemplateForMeasured(faketemplate, particleProperties.velocityStart.getValue(), particleProperties.velocityEnd.getValue(), type)
         particleProperties = {...particleProperties , ...measuredOverride}
         particleLifetime = particleProperties.particleLifetime.getValue()
         positionSpawning = particleProperties.positionSpawning.getValue()
