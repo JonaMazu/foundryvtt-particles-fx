@@ -77,6 +77,23 @@ function  _sprayParticles(colorTemplate, motionTemplate, inputObject, emitterId)
     return _abstractInitParticles(inputObject, finalInput, particleTemplate, emitterId)
 }
 
+export function areaParticles(...args){
+    const orderInputArg = _orderInputArg(args);
+
+    return _areaParticles(orderInputArg.colorTemplate, orderInputArg.motionTemplate, orderInputArg.inputObject, orderInputArg.emitterId)
+}
+
+function  _areaParticles(colorTemplate, motionTemplate, inputObject, emitterId){
+    const particleTexture = PIXI.Texture.from(`/modules/${s_MODULE_ID}/particle.png`);
+    CompatibiltyV2Manager.correctDeprecatedParam(inputObject)
+
+    const finalInput = _mergeTemplate(colorTemplate, motionTemplate, inputObject)
+
+    const particleTemplate = AreaParticleTemplate.build(finalInput, particleTexture)
+
+    return _abstractInitParticles(inputObject, finalInput, particleTemplate, emitterId)
+}
+
 export function missileParticles(...args){
     const orderInputArg = _orderInputArg(args);
 
