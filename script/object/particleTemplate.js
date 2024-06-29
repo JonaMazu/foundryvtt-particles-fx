@@ -124,7 +124,7 @@ export class SprayingParticleTemplate extends ParticleTemplate{
 
     constructor(source, target, positionSpawning, velocityStart, velocityEnd, angleStart, angleEnd, 
         sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, 
-        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced){
+        vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced,texture= "none"){
         super(source, target, sizeStart, sizeEnd, particleRotationStart, particleRotationEnd, particleLifetime, particleTexture, colorStart, colorEnd, alphaStart, alphaEnd, vibrationAmplitudeStart, vibrationAmplitudeEnd, vibrationFrequencyStart, vibrationFrequencyEnd, advanced)
         this.positionSpawning = Vector3.build(positionSpawning);   
         this.velocityStart = velocityStart;         //Array of Number      
@@ -144,6 +144,8 @@ export class SprayingParticleTemplate extends ParticleTemplate{
         let positionSpawning = particleProperties.positionSpawning.getValue()
 
         let targetAngleDirection
+        if(this.texture != "none")
+            this.particleTexture = PIXI.Texture.from(this.texture);
         if(target && (sourcePosition.x !== target.x || sourcePosition.y !== target.y)){
             //Target exist and is different than source
             let targetPosition = Utils.getSourcePosition(target)
