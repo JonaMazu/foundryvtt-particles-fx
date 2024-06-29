@@ -434,7 +434,7 @@ class fakeMeasured{
 export class AreaParticleTemplate extends ParticleTemplate{ 
 
     static getType(){
-        return "Circle"
+        return "circle"
     }
     static build(input, particleTexture){
         return new SprayingParticleTemplate(
