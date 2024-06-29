@@ -51,7 +51,7 @@ export function initEmitters(emittersQueries){
                 missileParticles(query);
                 break;
             case AreaParticleTemplate.getType() :
-                missileParticles(query);
+                areaParticles(query);
                 break;
             default:
                 sprayParticles(query);

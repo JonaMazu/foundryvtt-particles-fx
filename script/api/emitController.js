@@ -3,7 +3,7 @@ import { s_MESSAGE_TYPES, emitForOtherClient } from "../utils/socketManager.js"
 
 export default {
     spray : sprayParticles,
-    circle: sprayArea,
+    circle: areaParticles,
     gravit : gravitateParticles,
     missile : missileParticles,
     stop : stopEmissionById,
@@ -17,7 +17,7 @@ function sprayParticles(...args){
     return particlesEmitterService.sprayParticles(...args, emitterId)
 }
 
-function sprayArea(...args){
+function areaParticles(...args){
     let emitterId = { emitterId: particlesEmitterService.nextEmitterId() }
     emitForOtherClient(s_MESSAGE_TYPES.AreaParticles, args, emitterId); 
     return particlesEmitterService.AreaParticles(...args, emitterId)
